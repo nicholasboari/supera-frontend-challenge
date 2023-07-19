@@ -1,0 +1,31 @@
+.header-content {
+  display: block;
+  width: 40rem;
+}
+
+.header-content-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.datepicker-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.operator-input {
+  display: flex;
+  height: 30px;
+  margin-right: 0;
+}
+
+.header-content button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: 0;
+}

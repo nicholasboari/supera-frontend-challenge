@@ -1,4 +1,4 @@
-import "./index.css";
+import "./styles.css";
 import DatePicker from "../DatePicker";
 
 function Header() {
@@ -15,9 +15,17 @@ function Header() {
   };
   return (
     <div className="header-container">
-      <header>
-        <DatePicker onDateChange={handleDateChange} />
-        <DatePicker onDateChange={handleDateChange} />
+      <header className="header-content">
+        <div className="header-content-input">
+          <div className="datepicker-content">
+            Data inicio
+            <DatePicker onDateChange={handleDateChange} />
+            Data fim
+            <DatePicker onDateChange={handleDateChange} />
+          </div>
+          <input placeholder="Nome do operador" className="operator-input" />
+        </div>
+        <button>Pesquisar</button>
       </header>
     </div>
   );
