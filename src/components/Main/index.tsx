@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Transfer } from "../model/transfer";
-import { ApiResponse } from "../model/api";
+import { Transfer } from "../../model/transfer";
+import { ApiResponse } from "../../model/api";
 import Header from "../Header";
 import axios from "axios";
 import "./styles.css";
