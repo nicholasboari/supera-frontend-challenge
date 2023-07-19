@@ -26,10 +26,30 @@
 .main-content-table {
   display: flex;
   margin-top: 20px;
-  background-color: red;
 }
 
 .main-container h4 {
   display: flex;
   margin-right: 35rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid rgb(56, 56, 56);
+}
+
+th {
+  background-color: rgb(240, 240, 240);
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background-color: #f0f0f0;
 }
