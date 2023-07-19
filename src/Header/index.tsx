@@ -1,34 +1,51 @@
 import "./styles.css";
 import DatePicker from "../DatePicker";
 
-function Header() {
-  const handleDateChange = (date: Date) => {
-    const formattedDate = formatDate(date);
-    console.log(formattedDate);
+interface HeaderProps {
+  onStartDateChange: (date: Date) => void;
+  onEndDateChange: (date: Date) => void;
+  onOperatorNameChange: (name: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  onStartDateChange,
+  onEndDateChange,
+  onOperatorNameChange,
+}) => {
+  const handleStartDateChange = (date: Date) => {
+    onStartDateChange(date);
   };
 
-  const formatDate = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = (date.getDate() + 1).toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
+  const handleEndDateChange = (date: Date) => {
+    onEndDateChange(date);
   };
+
+  const handleOperatorNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const name = event.target.value;
+    onOperatorNameChange(name);
+  };
+
   return (
     <div className="header-container">
       <header className="header-content">
         <div className="header-content-input">
           <div className="datepicker-content">
-            Data inicio
-            <DatePicker onDateChange={handleDateChange} />
-            Data fim
-            <DatePicker onDateChange={handleDateChange} />
+            Data início:
+            <DatePicker onDateChange={handleStartDateChange} />
+            Data fim:
+            <DatePicker onDateChange={handleEndDateChange} />
           </div>
-          <input placeholder="Nome do operador" className="operator-input" />
+          <input
+            placeholder="Nome do operador"
+            className="operator-input"
+            onChange={handleOperatorNameChange}
+          />
         </div>
-        <button>Pesquisar</button>
       </header>
     </div>
   );
-}
+};
 
 export default Header;
