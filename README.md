@@ -18,3 +18,5 @@ Siga os passos abaixo para instalar as dependências do projeto:
 Execute com  
 ```bash
 npm run dev
+```
+![image](https://github.com/nicholasboari/supera-frontend-challenge/assets/44304317/a6c42143-bcc9-4adf-b154-df4201cd5b8c)
