@@ -13,14 +13,22 @@
 }
 
 .main-container button {
-  display: flex;
-  justify-content: center;
-  margin-left: 35rem;
-  height: 20px;
-  width: 80px;
+  display: inline-block;
+  margin-left: 34.5rem;
   margin-top: 20px;
-  background-color: green;
-  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main-container button:hover {
+  background-color: #45a049;
 }
 
 .main-content-table {
@@ -36,20 +44,28 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  border: 2px solid #ddd;
+  margin-bottom: 20px;
 }
 
 th,
 td {
-  padding: 8px;
+  padding: 12px;
+  /* Aumentando o espaçamento interno para melhor legibilidade */
   text-align: left;
-  border-bottom: 1px solid rgb(56, 56, 56);
+  border-bottom: 1px solid #ddd;
+  /* Utilizando uma cor de borda mais clara */
 }
 
 th {
-  background-color: rgb(240, 240, 240);
+  background-color: #f2f2f2;
+  /* Tom mais claro de fundo para os cabeçalhos */
   font-weight: bold;
+  color: #333;
+  /* Cor do texto para o cabeçalho */
 }
 
 tbody tr:hover {
-  background-color: #f0f0f0;
+  background-color: #f5f5f5;
+  /* Alterando a cor de fundo ao passar o mouse sobre as linhas */
 }

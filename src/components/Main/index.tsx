@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Transfer } from "../../model/transfer";
 import { ApiResponse } from "../../model/api";
+import { formatDate } from "../../util/formatDate";
 import Header from "../Header";
 import axios from "axios";
 import "./styles.css";
+
+const API_BASE_URL = "http://localhost:8080/api/v1";
 
 function Main() {
   const [startDate, setStartDate] = useState<Date>();
@@ -17,7 +20,7 @@ function Main() {
     setOperatorName(name);
   };
 
-  // calcula o Saldo total das transferencias
+  // calcula o Saldo total das transferências
   const calculateTotalSum = (transferData: Transfer[]) => {
     const total = transferData.reduce(
       (accumulator, item) => accumulator + item.value,
@@ -26,10 +29,20 @@ function Main() {
     setTotalSum(total);
   };
 
-  // renderiza os dados
-  useEffect(() => {
+  // realiza a busca das transferências com base nos filtros
+  const performSearch = () => {
+    let apiUrl = `${API_BASE_URL}/transfers/all`;
+
+    if (operatorName) {
+      apiUrl = `${API_BASE_URL}/transfers/find?operatorName=${operatorName}`;
+    } else if (startDate && endDate) {
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
+      apiUrl = `${API_BASE_URL}/transfers?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+    }
+
     axios
-      .get<ApiResponse>(`http://localhost:8080/api/v1/transfers/all`)
+      .get<ApiResponse>(apiUrl)
       .then((response) => {
         setTransfer(response.data.content);
         calculateTotalSum(response.data.content);
@@ -37,48 +50,12 @@ function Main() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  const handleSearch = () => {
-    if (startDate && endDate) {
-      const formattedStartDate = formatDate(startDate);
-      const formattedEndDate = formatDate(endDate);
-
-      if (operatorName) {
-        axios
-          .get<ApiResponse>(
-            `http://localhost:8080/api/v1/transfers/${operatorName}?startDate=${formattedStartDate}&endDate=${formattedEndDate}`
-          )
-          .then((response) => {
-            setTransfer(response.data.content);
-            calculateTotalSum(response.data.content);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        axios
-          .get<ApiResponse>(
-            `http://localhost:8080/api/v1/transfers?startDate=${formattedStartDate}&endDate=${formattedEndDate}`
-          )
-          .then((response) => {
-            setTransfer(response.data.content);
-            calculateTotalSum(response.data.content);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    }
   };
 
-  // formantando data
-  const formatDate = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = (date.getDate() + 1).toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
+  // renderiza os dados assim que a página inicia
+  useEffect(() => {
+    performSearch();
+  }, [operatorName, startDate, endDate]);
 
   return (
     <div className="main-container">
@@ -87,7 +64,7 @@ function Main() {
         onEndDateChange={setEndDate}
         onOperatorNameChange={handleOperatorNameChange}
       />
-      <button onClick={handleSearch}>Pesquisar</button>
+      <button onClick={performSearch}>Pesquisar</button>
       <h4>Saldo total: {totalSum.toFixed(2)}</h4>
       <div className="main-content-table">
         <table>
